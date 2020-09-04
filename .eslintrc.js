@@ -22,7 +22,13 @@ module.exports = {
         // 缩进默认使用4个空格
         indent: 'off',
         'no-unused-vars': 'off',
-        'import/no-duplicates': 'off'
+        'import/no-duplicates': 'off',
+        'space-before-function-paren': 0,
+        'no-trailing-spaces': ['off', {
+            skipBlankLines: true,
+            ignoreComments: true
+        }],
+        'padded-blocks': 0// 块语句内行首行尾是否要空行
     },
     overrides: [
         {

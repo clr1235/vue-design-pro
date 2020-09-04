@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <div class="footer">footer</div>
-    </div>
+    <div class="footer">Ant Design Pro ©2020 Created by rong</div>
 </template>
 
 <script>
@@ -12,5 +10,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 </style>
