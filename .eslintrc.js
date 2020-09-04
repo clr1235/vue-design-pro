@@ -28,7 +28,9 @@ module.exports = {
             skipBlankLines: true,
             ignoreComments: true
         }],
-        'padded-blocks': 0// 块语句内行首行尾是否要空行
+        'padded-blocks': 0, // 块语句内行首行尾是否要空行
+        semi: 0, // 表示允许语句末尾加“；”
+        'eol-last': 0 // 末尾不需要换行
     },
     overrides: [
         {

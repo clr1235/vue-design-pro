@@ -7,11 +7,12 @@
                 v-model="collapsed" 
                 collapsible
                 v-if="navMode === 'left'"
+                width="256px"
             >
                 <div class="logo">
-                    Ant design pro
+                    <span>Ant Design Pro</span>
                 </div>
-                <SiderMenu />
+                <SiderMenu :theme="navTheme"/>
             </a-layout-sider>
             <a-layout>
                 <a-layout-header style="background: #fff; padding: 0">
@@ -69,7 +70,6 @@ export default {
     padding: 0 24px;
     cursor: pointer;
     transition: color 0.3s;
-
 }
 .trigger:hover {
         background: #eee;
@@ -82,9 +82,12 @@ export default {
     overflow: hidden;
 }
 .nav-theme-dark {
-    /deep/ .logo {
-        color: #fff;
+    /deep/ .ant-layout{
+        .logo {
+            color: #fff;
+        }
     }
+     
 }
 
 </style>

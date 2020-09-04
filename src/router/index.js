@@ -8,10 +8,16 @@ import NotFound from '@views/404.vue'
 
 Vue.use(VueRouter)
 
+// 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
     {
         path: '/user',
-        // component: {render: h => h('router-view')},
+        hideInMenu: true,
         component: () => import(/* webpackChunkName: "layout" */ '@layouts/UserLayout.vue'),
         children: [
             {
@@ -42,10 +48,12 @@ const routes = [
             {
                 path: '/dashboard',
                 name: 'dashboard',
+                meta: { icon: 'dashboard', title: '仪表盘' },
                 component: { render: h => h('router-view') },
                 children: [{
                     path: '/dashboard/analysis',
                     name: 'analysis',
+                    meta: { title: '分析页' },
                     component: () => import(/* webpackChunkName: "dashboard" */ '@views/dashboard/Analysis')
                 }]
             },
@@ -53,14 +61,18 @@ const routes = [
             {
                 path: '/form',
                 name: 'form',
+                meta: { icon: 'form', title: '表单' },
                 component: { render: h => h('router-view') },
                 children: [{
                     path: '/form/basic-form',
                     name: 'basicform',
+                    meta: { title: '基础表单' },
                     component: () => import(/* webpackChunkName: "form" */ '@views/form/BasicForm')
                 }, {
                     path: '/form/step-form',
                     name: 'stepform',
+                    hideChildrenInMenu: true,
+                    meta: { title: '分步表单' },
                     component: () => import(/* webpackChunkName: "form" */ '@views/form/stepForm'),
                     children: [{
                         path: '/form/step-form',
@@ -85,6 +97,7 @@ const routes = [
     {
         path: '*',
         name: '404',
+        hideInMenu: true,
         component: NotFound
     }
 ]
