@@ -32,9 +32,10 @@ export default {
     components: { SubMenu },
     watch: {
         '$route.path': function(val) {
-            console.log(val, 'route val', this.collapsed)
+            // console.log(val, 'route val', this.openKeysMap)
             this.selectedKeys = this.selectedKeysMap[val]
-            this.openKeys = this.collapsed ? [] : this.openKeysMap[val]
+            // this.openKeys = this.collapsed ? [] : this.openKeysMap[val]
+            this.openKeys = this.openKeysMap[val]
         }
     },
     data() {
