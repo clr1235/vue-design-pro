@@ -23,7 +23,8 @@ module.exports = {
                 '@assets': resolve('./src/assets'),
                 '@store': resolve('./src/store'),
                 '@components': resolve('./src/components'),
-                '@layouts': resolve('./src/layouts')
+                '@layouts': resolve('./src/layouts'),
+                '@utils': resolve('./src/utils')
             }
         }
     }

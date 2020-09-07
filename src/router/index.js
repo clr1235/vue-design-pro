@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { findLast } from 'lodash'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import NotFound from '@views/404.vue'
+import { check } from '@utils/auth.js'
 
 Vue.use(VueRouter)
 
@@ -38,6 +40,9 @@ const routes = [
     },
     {
         path: '/',
+        meta: { 
+            authority: ['user', 'admin']
+        },
         component: () => import(/* webpackChunkName: "layout" */ '@layouts/BasicLayout'),
         children: [
             {
@@ -61,7 +66,7 @@ const routes = [
             {
                 path: '/form',
                 name: 'form',
-                meta: { icon: 'form', title: '表单' },
+                meta: { icon: 'form', title: '表单', authority: ['admin'] },
                 component: { render: h => h('router-view') },
                 children: [{
                     path: '/form/basic-form',
@@ -111,6 +116,11 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
     if (to.path !== from.path) {
         NProgress.start()
+    }
+    console.log(to.matched, 'matched')
+    const record = findLast(to.matched, record => record.meta.authority)
+    if (record && check(record.meta.authority)) {
+
     }
     next()
 })
