@@ -6,7 +6,8 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 import NotFound from '@views/404.vue'
-import { check } from '@utils/auth.js'
+import Forbidden from '@views/403.vue'
+import { check, isLogin } from '@utils/auth.js'
 
 Vue.use(VueRouter)
 
@@ -104,6 +105,12 @@ const routes = [
         name: '404',
         hideInMenu: true,
         component: NotFound
+    },
+    {
+        path: '/403',
+        name: '403',
+        hideInMenu: true,
+        component: Forbidden
     }
 ]
 
@@ -117,10 +124,19 @@ router.beforeEach((to, from, next) => {
     if (to.path !== from.path) {
         NProgress.start()
     }
-    console.log(to.matched, 'matched')
+    // console.log(to.matched, 'matched')
     const record = findLast(to.matched, record => record.meta.authority)
-    if (record && check(record.meta.authority)) {
-
+    if (record && !check(record.meta.authority)) {
+        if (!isLogin && to.path !== '/user/login') {
+            next({
+                path: '/user/login'
+            })
+        } else if (to.path !== '/403') {
+            next({
+                path: '/403'
+            })
+        }
+        NProgress.done()
     }
     next()
 })
