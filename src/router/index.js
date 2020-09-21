@@ -4,6 +4,7 @@ import { findLast } from 'lodash'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { notification } from 'ant-design-vue'
 
 import NotFound from '@views/404.vue'
 import Forbidden from '@views/403.vue'
@@ -132,6 +133,11 @@ router.beforeEach((to, from, next) => {
                 path: '/user/login'
             })
         } else if (to.path !== '/403') {
+            notification.error({
+                message: '403',
+                description: '您没有权限，请联系管理员！'
+                  
+              });
             next({
                 path: '/403'
             })

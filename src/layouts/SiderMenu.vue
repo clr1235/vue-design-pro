@@ -21,6 +21,8 @@
 
 <script>
 import SubMenu from './SubMenu'
+import { check } from '@utils/auth.js'
+
 export default {
     name: 'SiderMenu',
     props: {
@@ -54,7 +56,10 @@ export default {
         // 根据路由配置左侧的显示菜单
         getMenuData(routes = [], parentKeys = [], selectedKey) {
             const menuData = []
-            routes.forEach((item) => {
+            for (const item of routes) {
+                if (item.meta && item.meta.authority && !check(item.meta.authority)) {
+                    break;
+                }
                 if (item.name && !item.hideInMenu) {
                     this.openKeysMap[item.path] = parentKeys
                     this.selectedKeysMap[item.path] = [selectedKey || item.path]
@@ -73,7 +78,8 @@ export default {
                 ) {
                     menuData.push(...this.getMenuData(item.children, [...parentKeys, item.path]))
                 }
-            })
+            }
+            
             return menuData
         }
     }

@@ -16,15 +16,18 @@
             </a-layout-sider>
             <a-layout>
                 <a-layout-header style="background: #fff; padding: 0">
-                    <a-icon class="trigger"
+                    <a-icon 
+                        class="trigger"
+                        v-auth="['admin']"
                         @click="collapsed = !collapsed"
                         :type="collapsed ? 'menu-unfold' : 'menu-fold'"
                     ></a-icon>
                     <Header />
                 </a-layout-header>
                 <a-layout-content style="margin: 0 16px">
-                    <router-view></router-view>
-                    <SettingDrawer/>
+                    <Authorized :authority="['admin']">
+                        <SettingDrawer/>
+                    </Authorized>
                 </a-layout-content>
                 <a-layout-footer style="text-align: center">
                     <Footer />
