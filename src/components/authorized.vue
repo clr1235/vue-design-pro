@@ -9,7 +9,6 @@ export default {
         required: true
     },
     render (h, context) {
-        console.log(h, 'h===>>>', context)
         const { props, scopedSlots } = context
         return check(props.authority) ? scopedSlots.default() : null
     }

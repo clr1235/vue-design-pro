@@ -25,6 +25,7 @@
                     <Header />
                 </a-layout-header>
                 <a-layout-content style="margin: 0 16px">
+                    <router-view />
                     <Authorized :authority="['admin']">
                         <SettingDrawer/>
                     </Authorized>
