@@ -18,15 +18,15 @@ export default {
         }
     },
     watch: {
-        hander(val) {
-            this.myChart.setOption(val)
-        }
-        // option: {
-        //     handler(val) {
-        //         this.myChart.setOption(val)
-        //     },
-        //     deep: true
+        // hander(val) {
+        //     this.myChart.setOption(val)
         // }
+        option: {
+            handler(val) {
+                this.myChart.setOption(val)
+            },
+            deep: true
+        }
     },
     created() {
         this.resize = debounce(this.resize, 300)
@@ -49,7 +49,10 @@ export default {
             // 基于准备好的dom，初始化echarts实例
             this.myChart = echarts.init(this.$refs.chartDom);
             // 绘制图表
+            this.myChart.clear()
             this.myChart.setOption(this.option)
+            console.log(8767666)
+
         }
     }
 }
